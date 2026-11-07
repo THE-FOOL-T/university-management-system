@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="|${title} - University Management|">University Management</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar" th:fragment="navigation">
+    <a class="brand" th:href="@{/dashboard}"><span class="brand-mark">U</span><span>University <small>MANAGEMENT SYSTEM</small></span></a>
+    <nav aria-label="Main navigation"><a th:href="@{/dashboard}">Overview</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admins}">Admins</a>
+    <a sec:authorize="hasAnyRole('ADMIN', 'TEACHER')" th:href="@{/teachers}">Teachers</a>
+    <a sec:authorize="hasAnyRole('ADMIN', 'STUDENT')" th:href="@{/students}">Students</a></nav>
+    <form th:action="@{/logout}" method="post"><button class="button secondary small" type="submit">Sign out</button></form>
+</header>
+<footer th:fragment="footer" class="footer"><span>University Management System</span><span>CSE 3230 &middot; Spring Boot Lab</span></footer>
+</body></html>

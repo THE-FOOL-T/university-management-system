@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Teacher directory')}"></head>
+<body>
+<div th:replace="~{fragments :: navigation}"></div>
+<main class="container">
+    <div class="page-heading"><div><p class="eyebrow">UNIVERSITY DIRECTORY</p><h1>Teachers</h1>
+    <p class="muted">Manage teacher profiles and their linked accounts.</p></div>
+    <a class="button" th:href="@{/teachers/new}">+ Add teacher</a></div>
+    <p class="notice success" th:if="${success}" th:text="${success}"></p>
+    <section class="panel">
+    <div class="panel-heading"><h2>All teachers</h2><span class="badge" th:text="|${#lists.size(profiles)} records|"></span></div>
+    <div class="table-scroll"><table>
+        <thead><tr><th scope="col">ID</th><th scope="col">Full name</th><th scope="col">Employee ID</th><th scope="col">Department</th><th scope="col">Designation</th><th scope="col">Email</th><th scope="col">Actions</th></tr></thead>
+        <tbody><tr th:each="profile : ${profiles}"><td th:text="${profile.id}"></td>
+        <td th:text="${profile.name}"></td>
+        <td th:text="${profile.employeeId}"></td>
+        <td th:text="${profile.department}"></td>
+        <td th:text="${profile.designation}"></td>
+        <td th:text="${profile.account.email}"></td>
+        <td><div class="actions"><a class="button secondary small" th:href="@{/teachers/{id}/edit(id=${profile.id})}">Edit</a>
+        <form th:action="@{/teachers/{id}/delete(id=${profile.id})}" method="post">
+            <button class="button danger small" type="submit" th:aria-label="|Delete ${profile.name}|">Delete</button>
+        </form></div></td></tr>
+        <tr th:if="${#lists.isEmpty(profiles)}"><td class="empty" colspan="7">No teachers yet. Add the first profile to get started.</td></tr>
+        </tbody>
+    </table></div>
+    </section>
+    <p class="help">Deleting a profile also removes its login account.</p>
+</main><footer th:replace="~{fragments :: footer}"></footer>
+</body></html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments :: head('Overview')}"></head>
+<body><div th:replace="~{fragments :: navigation}"></div>
+<main class="container">
+    <p class="eyebrow">CAMPUS WORKSPACE</p><h1>Welcome to your dashboard.</h1>
+    <p class="muted">Choose a directory to view and manage university records.</p>
+    <section class="identity panel"><div><span class="eyebrow">SIGNED IN AS</span><h2 sec:authentication="name"></h2></div>
+        <span class="badge" sec:authorize="hasRole('ADMIN')">ADMIN</span><span class="badge" sec:authorize="hasRole('TEACHER')">TEACHER</span><span class="badge" sec:authorize="hasRole('STUDENT')">STUDENT</span></section>
+    <div class="cards">
+        <a class="directory-card" sec:authorize="hasRole('ADMIN')" th:href="@{/admins}"><span class="card-icon">A</span><h2>Administrators</h2><p>Manage administrator profiles and accounts.</p><span class="card-link">Manage admins &rarr;</span></a>
+        <a class="directory-card" sec:authorize="hasAnyRole('ADMIN', 'TEACHER')" th:href="@{/teachers}"><span class="card-icon">T</span><h2>Teachers</h2><p>Manage faculty details and teaching profiles.</p><span class="card-link">Manage teachers &rarr;</span></a>
+        <a class="directory-card" sec:authorize="hasAnyRole('ADMIN', 'STUDENT')" th:href="@{/students}"><span class="card-icon">S</span><h2>Students</h2><p>Manage student details and academic records.</p><span class="card-link">Manage students &rarr;</span></a>
+    </div>
+    <section class="panel note"><h2>Your workspace access</h2><p>Your role determines which directories you can manage. Within an allowed directory, you can create, view, update, and delete records.</p></section>
+</main><footer th:replace="~{fragments :: footer}"></footer></body></html>

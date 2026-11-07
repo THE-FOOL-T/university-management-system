@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Student profile')}"></head>
+<body><div th:replace="~{fragments :: navigation}"></div>
+<main class="container narrow">
+    <a class="back" th:href="@{/students}">&larr; Students</a>
+    <p class="eyebrow">PROFILE DETAILS</p>
+    <h1 th:text="${id == null ? 'Add student' : 'Edit student'}"></h1>
+    <p class="muted">Profile and account details are saved together.</p>
+    <form class="panel form-panel" th:action="${id == null} ? @{/students} : @{/students/{id}(id=${id})}" th:object="${form}" method="post">
+        <div class="notice error" th:if="${#fields.hasGlobalErrors()}"><p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p></div>
+        <h2>University information</h2>
+        <div class="form-grid">
+        <div class="field"><label for="name">Full name</label>
+            <input id="name" th:field="*{name}" type="text" maxlength="120" required>
+            <span class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></div>
+        <div class="field"><label for="roll">Roll number</label>
+            <input id="roll" th:field="*{roll}" type="text" maxlength="40" required>
+            <span class="field-error" th:if="${#fields.hasErrors('roll')}" th:errors="*{roll}"></span></div>
+        <div class="field"><label for="department">Department</label>
+            <input id="department" th:field="*{department}" type="text" maxlength="100" required>
+            <span class="field-error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span></div>
+        <div class="field"><label for="semester">Semester</label>
+            <input id="semester" th:field="*{semester}" type="number" min="1" max="12" required>
+            <span class="field-error" th:if="${#fields.hasErrors('semester')}" th:errors="*{semester}"></span></div>
+        </div>
+        <hr><h2>Login account</h2>
+        <div class="field"><label for="email">Email address</label><input id="email" type="email" th:field="*{email}" maxlength="254" autocomplete="off" required>
+        <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></div>
+        <div class="field"><label for="password" th:text="${id == null ? 'Password' : 'New password (optional)'}"></label>
+        <input id="password" name="password" type="password" minlength="10" autocomplete="new-password" th:required="${id == null}" aria-describedby="password-help">
+        <span class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        <p id="password-help" class="help">At least 10 characters; at most 72 UTF-8 bytes. When editing, leave empty to keep the current password.</p></div>
+        <div class="form-footer"><a class="button secondary" th:href="@{/students}">Cancel</a><button class="button" type="submit">Save student</button></div>
+    </form>
+</main><footer th:replace="~{fragments :: footer}"></footer></body></html>

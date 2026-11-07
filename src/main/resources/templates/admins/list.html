@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Admin directory')}"></head>
+<body>
+<div th:replace="~{fragments :: navigation}"></div>
+<main class="container">
+    <div class="page-heading"><div><p class="eyebrow">UNIVERSITY DIRECTORY</p><h1>Admins</h1>
+    <p class="muted">Manage admin profiles and their linked accounts.</p></div>
+    <a class="button" th:href="@{/admins/new}">+ Add admin</a></div>
+    <p class="notice success" th:if="${success}" th:text="${success}"></p>
+    <section class="panel">
+    <div class="panel-heading"><h2>All admins</h2><span class="badge" th:text="|${#lists.size(profiles)} records|"></span></div>
+    <div class="table-scroll"><table>
+        <thead><tr><th scope="col">ID</th><th scope="col">Full name</th><th scope="col">Designation</th><th scope="col">Email</th><th scope="col">Actions</th></tr></thead>
+        <tbody><tr th:each="profile : ${profiles}"><td th:text="${profile.id}"></td>
+        <td th:text="${profile.name}"></td>
+        <td th:text="${profile.designation}"></td>
+        <td th:text="${profile.account.email}"></td>
+        <td><div class="actions"><a class="button secondary small" th:href="@{/admins/{id}/edit(id=${profile.id})}">Edit</a>
+        <form th:action="@{/admins/{id}/delete(id=${profile.id})}" method="post">
+            <button class="button danger small" type="submit" th:aria-label="|Delete ${profile.name}|">Delete</button>
+        </form></div></td></tr>
+        <tr th:if="${#lists.isEmpty(profiles)}"><td class="empty" colspan="5">No admins yet. Add the first profile to get started.</td></tr>
+        </tbody>
+    </table></div>
+    </section>
+    <p class="help">Deleting a profile also removes its login account. Your own account and the last enabled administrator are protected.</p>
+</main><footer th:replace="~{fragments :: footer}"></footer>
+</body></html>

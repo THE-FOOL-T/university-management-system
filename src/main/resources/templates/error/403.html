@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Access denied')}"></head>
+<body><main class="container narrow error-page"><p class="eyebrow" th:text="${status ?: 'UNIVERSITY MANAGEMENT'}"></p>
+<h1>Access denied</h1><p th:text="${safeMessage ?: 'Your role does not allow this action, or the form expired. Open the page again to get a fresh security token.'}"></p>
+<a class="button" th:href="@{/dashboard}">Return to dashboard</a><a class="back" th:href="@{/login}">Sign in</a>
+</main></body></html>
