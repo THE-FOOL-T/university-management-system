@@ -1,0 +1,29 @@
+# Build artifacts and dependencies
+target/
+.tools/
+*.class
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# IDE and editor files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Logs and runtime artifacts
+*.log
+logs/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini

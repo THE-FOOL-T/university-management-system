@@ -1,0 +1,18 @@
+name: university-management-tests
+services:
+  test-db:
+    image: postgres:16.15-alpine
+    environment:
+      POSTGRES_DB: university_test
+      POSTGRES_USER: university_test
+      POSTGRES_PASSWORD: ${TEST_DB_PASSWORD:?Set TEST_DB_PASSWORD for the isolated test database}
+    ports:
+      - "127.0.0.1:5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U university_test -d university_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    # Test data is disposable and never uses the development volume.
+    tmpfs:
+      - /var/lib/postgresql/data
