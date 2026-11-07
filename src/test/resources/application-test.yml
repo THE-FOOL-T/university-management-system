@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:postgresql://localhost:5432/university_test}
+    driver-class-name: org.postgresql.Driver
+    username: ${TEST_DB_USERNAME:postgres}
+    password: ${TEST_DB_PASSWORD:test_password}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+app:
+  bootstrap:
+    enabled: false
+logging:
+  level:
+    org.hibernate.SQL: WARN
+    org.hibernate.orm.jdbc.bind: OFF
