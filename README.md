@@ -1,4 +1,4 @@
-# University Management System — CSE 3230
+# University Management System
 
 [![Build and Test CI](https://github.com/THE-FOOL-T/university-management-system/actions/workflows/ci.yml/badge.svg)](https://github.com/THE-FOOL-T/university-management-system/actions/workflows/ci.yml)
 
